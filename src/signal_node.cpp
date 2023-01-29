@@ -11,11 +11,11 @@ int main(int argc, char **argv)
 
     ros::Rate loop_rate(1);
     int cnt = 0;
+    std_msgs::Int32 msg;
+    msg.data = 0;
     while (ros::ok())
     {
-        std_msgs::Int32 msg;
-        msg.data = 0;
-        if(cnt == 2){
+        if(cnt == 1){
             cnt = 0;
             if(msg.data == 0)msg.data = 1;
             else if(msg.data == 1)msg.data = 0;
@@ -23,6 +23,7 @@ int main(int argc, char **argv)
         signal_pub.publish(msg);
         ros::spinOnce();
         loop_rate.sleep();
+        cnt++;
     }
 
     return 0;
